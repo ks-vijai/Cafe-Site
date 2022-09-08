@@ -1,5 +1,5 @@
 const cafeList = document.getElementById('cafe-list');
-
+const form = document.getElementById('add-cafe-form');
 function renderCafe(docs) {
     //console.log(docs.data().name)
     const cafe = document.createElement('li');
@@ -20,4 +20,14 @@ db.collection('cafes').get().then((snapshot) => {
     snapshot.forEach(docs => {
         renderCafe(docs);
     })
+})
+
+form.addEventListener('submit',(e) => {
+    e.preventDefault();
+    db.collection('cafes').add({
+        name: form.name.value,
+        city: form.city.value
+    })
+    form.name.value = '',
+    form.city.value = ''
 })
